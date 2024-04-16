@@ -69,10 +69,30 @@ function linkRegist(){
         alert("Error, el usuario no es válido")
     }
 }
-console.log(users)
 
-//ejercicio 10 HACIENDO
+//ejercicio 10 CHEQUEAR
+function addNote(title, content, category){
+    if (title=="" || content=="" || category==""){
+        return -1
+    }else {
+        notes.push(new Note(title, content, [idLogeado], category))
+        return notes.length
+    }
+}
 
+//ejercicio 11 CHEQUEAR
+function linkAddNote(){
+    title=getNoteTitle
+    content=getNoteContent
+    category=getNoteCategory
+    id_note=addNote(title, content, category)
+    drawNewNote(title, content, category, id_note)
+}
+
+//ejercicio 12 CHEQUEAR
+function searchNote(){
+    console.log(getSearchID())
+}
 
 /*
 console.log(notes)
