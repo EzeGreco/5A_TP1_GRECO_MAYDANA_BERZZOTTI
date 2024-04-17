@@ -1,10 +1,12 @@
 let idLogeado=0
 //ejercicio 4 LISTO
 const users = [
+    new User("", ""),
     new User("john_doe", "password123"),
     new User("jane_smith", "abc123"),
     new User("bob_jackson", "securePass")
 ];
+linkLogin()
 
 //ejercicio 5 LISTO
 const notes = [
@@ -82,17 +84,25 @@ function addNote(title, content, category){
 
 //ejercicio 11 CHEQUEAR
 function linkAddNote(){
-    title=getNoteTitle
-    content=getNoteContent
-    category=getNoteCategory
+    title=getNoteTitle()
+    content=getNoteContent()
+    category=getNoteCategory()
     id_note=addNote(title, content, category)
     drawNewNote(title, content, category, id_note)
 }
 
 //ejercicio 12 CHEQUEAR
 function searchNote(){
-    console.log(getSearchID())
+    idNotes = getSearchID()
+    console.log(notes[idNotes-1])
+
 }
+
+
+// ejercicio 13
+//Implementar un método en la clase “Note” para sumar al historial de modificaciones un nuevo
+// cambio en la nota, instanciando el objeto realizado en el ejercicio 3.
+
 
 /*
 console.log(notes)
