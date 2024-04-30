@@ -17,4 +17,10 @@ usuarios).
         this.record=[];
         idsNotes++;
     }
+    
+    //ejercicio 13 CHEQUEAR
+    addModification(idLogeado) {
+        let modification=new Modification(idLogeado,"2/10/24",this.content, this.title, this.category)
+        this.record.push(modification)
+    }
 }

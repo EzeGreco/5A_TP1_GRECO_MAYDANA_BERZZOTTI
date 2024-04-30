@@ -1,19 +1,21 @@
 let idLogeado=0
-//ejercicio 4 LISTO
+//ejercicio 4 HECHO
 const users = [
     new User("john_doe", "password123"),
     new User("jane_smith", "abc123"),
     new User("bob_jackson", "securePass")
 ];
 
-//ejercicio 5 LISTO
+//ejercicio 5 HECHO
 const notes = [
     new Note("Note 1", "Content of note 1", [users[0].id], "Work"),
     new Note("Note 2", "Content of note 2", [users[1].id], "Personal"),
     new Note("Note 3", "Content of note 3", [users[2].id], "Study")
 ];
 
-//ejercicio 6 CHEQUEAR
+const historial=[]
+
+//ejercicio 6 HECHO
 function checkUser(user, password){
     let i=0
     while(i<users.length){
@@ -28,7 +30,7 @@ function checkUser(user, password){
     }
     return  -1
 }
-//ejercicio 7 CHEQUEAR
+//ejercicio 7 HECHO
 
 function linkLogin(){
     let user=getUser()
@@ -46,7 +48,7 @@ function linkLogin(){
     }
 }
 
-//ejercicio 8 CHEQUEAR
+//ejercicio 8 HECHO
 function registUser(user, password){
     let i=0
     if (checkUser(user, password)==-1){
@@ -59,7 +61,7 @@ function registUser(user, password){
     
 }
 
-//ejercicio 9 CHEQUEAR 
+//ejercicio 9 HECHO 
 function linkRegist(){
     let user=getUser()
     let password=getPassword()
@@ -70,7 +72,7 @@ function linkRegist(){
     }
 }
 
-//ejercicio 10 CHEQUEAR
+//ejercicio 10 HECHO
 function addNote(title, content, category){
     if (title=="" || content=="" || category==""){
         return -1
@@ -80,19 +82,46 @@ function addNote(title, content, category){
     }
 }
 
-//ejercicio 11 CHEQUEAR
+//ejercicio 11 HECHO
 function linkAddNote(){
-    title=getNoteTitle
-    content=getNoteContent
-    category=getNoteCategory
-    id_note=addNote(title, content, category)
+    let title=getNoteTitle()
+    let content=getNoteContent()
+    let category=getNoteCategory()
+    let id_note=addNote(title, content, category)
     drawNewNote(title, content, category, id_note)
 }
 
-//ejercicio 12 CHEQUEAR
+//ejercicio 12 HECHO
 function searchNote(){
     console.log(getSearchID())
 }
+
+//ejercicio 14 CHEQUEAR
+function modifyContent(id_Note, content, category, title){
+    if (title!= ""){
+        notes.addModification(idLogeado)
+        notes[id_Note].content=content
+        notes[id_Note].title=title
+        notes[id_Note].category=category 
+        return id_Note
+    }
+    else{ 
+        return -1
+    }
+}
+
+//ejercicio 15 CHEQUEAR
+function modifyForId(){
+    let id=getSearchID()
+    let title=getNoteTitle()
+    let content=getNoteContent()
+    let category=getNoteCategory()
+    modifyContent(id_Note, content, category, title)
+    modifyNoteUI(title, content, category, id)
+}
+
+
+
 
 /*
 console.log(notes)
