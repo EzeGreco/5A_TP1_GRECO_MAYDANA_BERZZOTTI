@@ -1,4 +1,5 @@
 let idLogeado=0
+
 //ejercicio 4 HECHO
 const users = [
     new User("", ""),
@@ -6,7 +7,7 @@ const users = [
     new User("jane_smith", "abc123"),
     new User("bob_jackson", "securePass")
 ];
-linkLogin()
+//linkLogin()
 
 //ejercicio 5 HECHO
 const notes = [
@@ -15,7 +16,9 @@ const notes = [
     new Note("Note 3", "Content of note 3", [users[2].id], "Study")
 ];
 
-const historial=[]
+/*//Cargar notas del storage, tomar las de ejemplo si no hay nada en el vector local
+const notes = loadNotes()
+*/
 
 //ejercicio 6 HECHO
 function checkUser(user, password){
@@ -80,6 +83,7 @@ function addNote(title, content, category){
         return -1
     }else {
         notes.push(new Note(title, content, [idLogeado], category))
+        saveNotes(notes)
         return notes.length
     }
 }
@@ -89,8 +93,8 @@ function linkAddNote(){
     title=getNoteTitle()
     content=getNoteContent()
     category=getNoteCategory()
-    id_note=addNote(title, content, category)
-    drawNewNote(title, content, category, id_note)
+    idNote=addNote(title, content, category)
+    drawNewNote(title, content, category, idNote)
 }
 
 //ejercicio 12 HECHO
@@ -101,15 +105,17 @@ function searchNote(){
 }
 
 //ejercicio 14 CHEQUEAR
-function modifyContent(id_Note, content, category, title){
-    if (title!= ""){
-        notes.addModification(idLogeado)
-        notes[id_Note].content=content
-        notes[id_Note].title=title
-        notes[id_Note].category=category 
-        return id_Note
-    }
-    else{ 
+function modifyContent(idNote, content, category, title){
+    for (let i = 0; i < notes.length; i++) {
+        console.log(notes[i])
+        if (notes[i].id === idNote) {
+            notes[i].addModification(idLogeado)
+            notes[i].content=content
+            notes[i].title=title
+            notes[i].category=category
+            return notes[i].id;
+        }
+
         return -1
     }
 }
@@ -120,16 +126,82 @@ function modifyForId(){
     let title=getNoteTitle()
     let content=getNoteContent()
     let category=getNoteCategory()
-    modifyContent(id_Note, content, category, title)
+    modifyContent(id, content, category, title)
     modifyNoteUI(title, content, category, id)
 }
 
 
+//ejercicio 16 CHEQUEAR
+function deleteNote(idNote){
+    for (let i = 0; i < notes.length; i++) {
+        console.log(notes[i])
+        if (notes[i].id === idNote) {
+            notes[i].delete
+            saveNotes(notes)
+            return notes[i].id;
+        }
+        return -1
+    }
+}
+
+//ejercicio 17 CHEQUEAR
+function deleteForId(){
+    let id=getSearchID()
+    deleteNote(id)
+    eraseNoteUI(id)
+}
+
+//ejercicio 18 CHEQUEAR
+function searchNotaForText(){
+    // Verificar que el texto tenga al menos 4 caracteres
+    let text = getSearchContent()
+    if (text.length < 4) {
+        console.log("El texto debe tener al menos 4 caracteres.");
+        return;
+    }
+    // Recorrer todas las notas
+    for (let i = 0; i < notes.length; i++) {
+        // Verificar si el contenido de la nota incluye el texto ingresado (ignorando mayúsculas y minúsculas)
+        if (notes[i].content.toLowerCase().includes(text.toLowerCase())) {
+            console.log(notes[i]);
+        }
+    }
+    return
+}
+
+//ejercicio 21 CHEQUEAR
+notes[0].addUser(325);
+notes[0].addUser(25);
+notes[0].deleteUser(25);
+notes[1].addUser(325);
+notes[1].addUser(25);
+notes[1].deleteUser(325);
+notes[2].addUser(325);
+notes[2].addUser(25);
+notes[2].deleteUser(325);
 
 
-// ejercicio 13
-//Implementar un método en la clase “Note” para sumar al historial de modificaciones un nuevo
-// cambio en la nota, instanciando el objeto realizado en el ejercicio 3.
+//ejercicio 22 CHEQUEAR
+function saveNotes(notes) {
+    // Convertir el array de notas a una cadena JSON
+    const notesJSON = JSON.stringify(notes);
+    // Guardar la cadena JSON en el localStorage bajo una clave específica
+    localStorage.setItem('notes', notesJSON);
+    console.log(notes)
+}
+
+function loadNotes() { 
+    const notesJSON = localStorage.getItem('notes');
+    // Si la cadena JSON no es nula, convertirla de nuevo a un array de notas y devolverlo
+    if (notesJSON != null) {
+        let notesTemp = JSON.parse(notesJSON);
+        console.log(notesTemp);
+        return notesTemp;
+    } else {
+      // Si la cadena JSON es nula, devolver un array vacío
+      return [];
+    }
+}
 
 
 /*

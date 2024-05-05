@@ -12,7 +12,7 @@ usuarios).
         this.id=idsNotes;
         this.title=title;
         this.content=content;
-        this.users=[user];
+        this.users=[idLogeado];
         this.category=category;
         this.record=[];
         idsNotes++;
@@ -23,4 +23,29 @@ usuarios).
         let modification=new Modification(idLogeado,"2/10/24",this.content, this.title, this.category)
         this.record.push(modification)
     }
-}
+
+    //ejercicio 19 CHEQUEAR
+    addUser(id) {
+        for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i] === id) {
+               console.log("Ya está el usuario añadido")
+                return;
+            }
+        } 
+        this.users.push(id)
+        console.log("Se añadio el usuario")
+        }
+    
+    //ejercicio 20 CHEQUEAR
+    deleteUser(id) {
+        for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i] === id) {
+                this.users.splice(i, 1)
+                console.log("Ya está el usuario eliminado")
+                return;
+            }
+        } 
+        console.log("No se encontró el usuario")
+        }
+
+    }
